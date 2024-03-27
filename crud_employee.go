@@ -23,57 +23,8 @@ func main() {
 	// Connect to the database
 	db = connectDB()
 	defer db.Close()
-
-	var choice int
-	for {
-		fmt.Println("1. Insert employee details")
-		fmt.Println("2. Update employee details")
-		fmt.Println("3. Display all employees")
-		fmt.Println("4. Delete employee")
-		fmt.Println("5. Insert new position")
-		fmt.Println("6. Update position")
-		fmt.Println("7. Display all positions")
-		fmt.Println("8. Delete position")
-		fmt.Println("9. Insert new payscale")
-		fmt.Println("10. Update payscale")
-		fmt.Println("11. Display all payscales")
-		fmt.Println("12. Delete payscale")
-		fmt.Println("13. Exit")
-		fmt.Print("Enter your choice: ")
-		fmt.Scanln(&choice)
-
-		switch choice {
-		case 1:
-			insertEmployee()
-		case 2:
-			updateEmployee()
-		case 3:
-			displayAllEmployees()
-		case 4:
-			deleteEmployee()
-		case 5:
-			insertPosition()
-		case 6:
-			updatePosition()
-		case 7:
-			displayAllPositions()
-		case 8:
-			deletePosition()
-		case 9:
-			insertPayscale()
-		case 10:
-			updatePayscale()
-		case 11:
-			displayAllPayscales()
-		case 12:
-			deletePayscale()
-		case 13:
-			fmt.Println("Exiting...")
-			os.Exit(0)
-		default:
-			fmt.Println("Invalid choice")
-		}
-	}
+	http.HandleFunc("/insert", insertHandler)
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
 func connectDB() *sql.DB {
@@ -85,52 +36,78 @@ func connectDB() *sql.DB {
 	return db
 }
 
-// Implement functions for each option (insertEmployee, updateEmployee, etc.)
+func insertHandler(w http.ResponseWriter, r *http.Request) {
+	// Parse form data
+	err := r.ParseForm()
+	if err != nil {
+		http.Error(w, "Failed to parse form data", http.StatusBadRequest)
+		return
+	}
 
-func insertEmployee() {
-	// Implement function to insert employee details
+	// Extract form values
+	firstName := r.Form.Get("first_name")
+	lastName := r.Form.Get("last_name")
+	// Parse other form fields similarly
+
+	// Insert into database
+	_, err = db.Exec("INSERT INTO employees (first_name, last_name) VALUES ($1, $2)", firstName, lastName)
+	if err != nil {
+		http.Error(w, "Failed to insert employee details", http.StatusInternalServerError)
+		return
+	}
+
+	// Respond with success message
+	fmt.Fprintf(w, "Employee details inserted successfully")
 }
 
-func updateEmployee() {
-	// Implement function to update employee details
-}
 
-func displayAllEmployees() {
-	// Implement function to display all employees
-}
 
-func deleteEmployee() {
-	// Implement function to delete an employee
-}
+// // Implement functions for each option (insertEmployee, updateEmployee, etc.)
 
-func insertPosition() {
-	// Implement function to insert a new position
-}
+// func insertEmployee() {
+// 	// Implement function to insert employee details
+// }
 
-func updatePosition() {
-	// Implement function to update a position
-}
+// func updateEmployee() {
+// 	// Implement function to update employee details
+// }
 
-func displayAllPositions() {
-	// Implement function to display all positions
-}
+// func displayAllEmployees() {
+// 	// Implement function to display all employees
+// }
 
-func deletePosition() {
-	// Implement function to delete a position
-}
+// func deleteEmployee() {
+// 	// Implement function to delete an employee
+// }
 
-func insertPayscale() {
-	// Implement function to insert a new payscale
-}
+// func insertPosition() {
+// 	// Implement function to insert a new position
+// }
 
-func updatePayscale() {
-	// Implement function to update a payscale
-}
+// func updatePosition() {
+// 	// Implement function to update a position
+// }
 
-func displayAllPayscales() {
-	// Implement function to display all payscales
-}
+// func displayAllPositions() {
+// 	// Implement function to display all positions
+// }
 
-func deletePayscale() {
-	// Implement function to delete a payscale
-}
+// func deletePosition() {
+// 	// Implement function to delete a position
+// }
+
+// func insertPayscale() {
+// 	// Implement function to insert a new payscale
+// }
+
+// func updatePayscale() {
+// 	// Implement function to update a payscale
+// }
+
+// func displayAllPayscales() {
+// 	// Implement function to display all payscales
+// }
+
+// func deletePayscale() {
+// 	// Implement function to delete a payscale
+// }

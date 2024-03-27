@@ -6,11 +6,50 @@
     <title>Insert Employee Details</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #007bff;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        .btn-primary, .btn-secondary {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .home-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
+        <a href="index.html" class="btn btn-primary home-btn">Go to Home</a>
         <h1>Insert Employee Details</h1>
-        <form>
+        <form action="/insert" method="POST">
             <div class="form-group">
                 <label for="first-name">First Name</label>
                 <input type="text" class="form-control" id="first-name" placeholder="Enter first name" required>
@@ -28,7 +67,7 @@
                 <input type="number" class="form-control" id="position-id" placeholder="Enter position ID" required>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
-            <a href="index.html" class="btn btn-secondary">Go back to previous page</a>
+            <a href="employee.html" class="btn btn-secondary">Go back to previous page</a>
         </form>
     </div>
     <!-- Bootstrap JS -->

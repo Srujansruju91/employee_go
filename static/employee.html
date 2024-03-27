@@ -10,10 +10,6 @@
         body {
             background-color: #f8f9fa;
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
         }
 
@@ -23,8 +19,9 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin-top: 50px;
+            text-align: center;
         }
-
 
         h1 {
             color: #007bff;
@@ -49,9 +46,16 @@
             border-color: #0056b3;
             color: #fff;
         }
+
+        .home-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
     </style>
 </head>
 <body>
+    <a href="index.html" class="btn btn-primary home-btn">Go to Home</a>
     <div class="container">
         <h1>Employee Page</h1>
         <div class="btn-group" role="group" aria-label="Employee Actions">
